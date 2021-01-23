@@ -1,8 +1,8 @@
 package com.pgilewsk.service.service.impl;
 
 import com.pgilewsk.service.domain.PersonCreator;
-import com.pgilewsk.service.domain.PersonMapper;
 import com.pgilewsk.service.domain.PersonDto;
+import com.pgilewsk.service.domain.PersonMapper;
 import com.pgilewsk.service.repository.PersonRepository;
 import com.pgilewsk.service.service.PersonService;
 import lombok.AccessLevel;
@@ -11,7 +11,9 @@ import lombok.experimental.FieldDefaults;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -23,7 +25,7 @@ public class PersonServiceImpl implements PersonService {
     PersonCreator personCreator;
 
     @Override
-    public void savePerson(PersonDto dto) {
+    public void addPerson(PersonDto dto) {
         PersonCreator.create(dto);
         personRepository.save(PersonCreator.create(dto));
     }
@@ -40,5 +42,19 @@ public class PersonServiceImpl implements PersonService {
     @Override
     public Optional<PersonDto> findById(int id) {
         return personRepository.findById(id).map(PersonMapper::mapToDto);
+    }
+
+    @Override
+    public Optional<String> findPersonById(int id) {
+        return findById(id).map(PersonMapper::mapDtoToString);
+    }
+
+    @Override
+    public String findAllPersons() {
+        StringBuilder persons = new StringBuilder();
+        for (PersonDto personDto : findAll()) {
+            persons.append(PersonMapper.mapDtoToString(personDto));
+        }
+        return persons.toString();
     }
 }

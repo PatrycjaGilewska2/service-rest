@@ -10,5 +10,9 @@ public interface PersonService {
 
     Optional<PersonDto> findById(int id);
 
-    void savePerson(PersonDto dto);
+    void addPerson(PersonDto dto);
+
+    Optional<String> findPersonById(int id);
+
+    String findAllPersons();
 }

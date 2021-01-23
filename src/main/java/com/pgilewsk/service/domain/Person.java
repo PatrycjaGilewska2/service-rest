@@ -23,13 +23,4 @@ public class Person {
     int personId;
     String firstName;
     String lastName;
-
-    @Override
-    public String toString() {
-        var builder = new StringBuilder();
-        builder.append("person{id=").append(personId).append(", first_name=")
-                .append(firstName).append(", last_name=")
-                .append(lastName).append("}");
-        return builder.toString();
-    }
 }

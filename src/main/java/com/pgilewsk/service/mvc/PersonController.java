@@ -21,11 +21,21 @@ public class PersonController {
 
     @PostMapping("/persons")
     private void addPerson(@RequestBody PersonDto personDto) {
-        personService.savePerson(personDto);
+        personService.addPerson(personDto);
     }
 
     @GetMapping(value = "/persons/{id}")
-    private Optional<PersonDto> findPersonById(@PathVariable("id") int id) {
+    private Optional<PersonDto> findById(@PathVariable("id") int id) {
         return personService.findById(id);
+    }
+
+    @GetMapping(value = "/strings/{id}")
+    private Optional<String> findPersonById(@PathVariable("id") int id) {
+        return personService.findPersonById(id);
+    }
+
+    @GetMapping(value = "/strings")
+    private String findPersons() {
+        return personService.findAllPersons();
     }
 }
