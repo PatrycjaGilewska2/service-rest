@@ -5,11 +5,8 @@ import java.util.List;
 
 public class PersonMapper {
 
-    public static PersonDTO map(PersonEntity personEntity) {
-        if (personEntity == null) {
-            return null;
-        }
-
+    public static PersonDTO mapToDto(PersonEntity personEntity) {
+        if (personEntity == null) { return null; }
         PersonDTO personDTO = new PersonDTO();
         personDTO.setId(personEntity.getId());
         personDTO.setFirstName(personEntity.getFirstName());
@@ -17,12 +14,27 @@ public class PersonMapper {
         return personDTO;
     }
 
-    public static List<PersonDTO> mapToDTOs(List<PersonEntity> boardGameEntities) {
-        List<PersonDTO> boardGameDTOs = new ArrayList<>();
-        for (PersonEntity boardGameEntity : boardGameEntities) {
-            boardGameDTOs.add(map(boardGameEntity));
+    public static List<PersonDTO> mapToDtos(List<PersonEntity> personEntities) {
+        List<PersonDTO> personDTOs = new ArrayList<>();
+        for (PersonEntity personEntity : personEntities) {
+            personDTOs.add(mapToDto(personEntity));
         }
-        return boardGameDTOs;
+        return personDTOs;
     }
 
+    public static String mapToStrings(List<PersonEntity> personEntities) {
+        String stringDtos = "";
+        for (PersonEntity personEntity : personEntities) {
+            stringDtos += mapToString(personEntity);
+        }
+        return stringDtos;
+    }
+
+    public static String mapToString(PersonEntity personEntity) {
+        if (personEntity == null) { return null; }
+        return "id: " + personEntity.getId().toString() +
+                ", first name: " + personEntity.getFirstName() +
+                ", last name: " + personEntity.getLastName() + ";\n";
+    }
 }
+

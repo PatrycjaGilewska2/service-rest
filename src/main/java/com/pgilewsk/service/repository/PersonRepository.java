@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface PersonRepository {
     List<PersonDTO> findAll();
+    String findAllStrings();
 }

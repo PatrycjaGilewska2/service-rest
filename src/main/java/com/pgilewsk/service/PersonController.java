@@ -24,4 +24,9 @@ public class PersonController {
         return personService.findAll();
     }
 
+    @GetMapping("/string")
+    private String findAllStrings() {
+        return personService.findAllStrings();
+    }
+
 }

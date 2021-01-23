@@ -17,4 +17,9 @@ public class PersonServiceImpl implements PersonService {
     public List<PersonDTO> findAll() {
         return personRepository.findAll();
     }
+
+    @Override
+    public String findAllStrings() {
+        return personRepository.findAllStrings();
+    }
 }

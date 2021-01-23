@@ -22,6 +22,11 @@ public class PersonRepositoryImpl implements PersonRepository {
 
     @Override
     public List<PersonDTO> findAll() {
-        return PersonMapper.mapToDTOs(personEntities);
+        return PersonMapper.mapToDtos(personEntities);
+    }
+
+    @Override
+    public String findAllStrings() {
+        return PersonMapper.mapToStrings(personEntities);
     }
 }
