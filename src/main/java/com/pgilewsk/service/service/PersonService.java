@@ -1,10 +1,14 @@
 package com.pgilewsk.service.service;
 
-import com.pgilewsk.service.domain.PersonDTO;
+import com.pgilewsk.service.domain.PersonDto;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface PersonService {
-    List<PersonDTO> findAll();
-    String findAllStrings();
+    List<PersonDto> findAll();
+
+    Optional<PersonDto> findById(int id);
+
+    void savePerson(PersonDto dto);
 }
