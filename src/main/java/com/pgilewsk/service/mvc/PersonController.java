@@ -19,8 +19,8 @@ public class PersonController {
     @Autowired
     PersonService personService;
 
-    @PostMapping("/persons")
-    public int addPerson(@RequestBody PersonDto personDto) {
+    @PostMapping(value = "/persons")
+    public Integer addPerson(@RequestBody PersonDto personDto) {
         return personService.addPerson(personDto);
     }
 
@@ -36,7 +36,7 @@ public class PersonController {
         return personService.findAllPersons();
     }
 
-    @GetMapping("/dtos")
+    @GetMapping(value = "/dtos")
     public List<PersonDto> findAll() {
         return personService.findAll();
     }
