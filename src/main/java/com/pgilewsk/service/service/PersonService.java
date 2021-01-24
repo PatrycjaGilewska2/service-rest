@@ -10,7 +10,7 @@ public interface PersonService {
 
     Optional<PersonDto> findById(int id);
 
-    void addPerson(PersonDto dto);
+    int addPerson(PersonDto dto);
 
     Optional<String> findPersonById(int id);
 

@@ -2,40 +2,49 @@ package com.pgilewsk.service.mvc;
 
 import com.pgilewsk.service.domain.PersonDto;
 import com.pgilewsk.service.service.PersonService;
+import lombok.AccessLevel;
+import lombok.experimental.FieldDefaults;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.HttpClientErrorException;
 
 import java.util.List;
 import java.util.Optional;
 
 @RestController
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class PersonController {
 
     @Autowired
-    private PersonService personService;
-
-    @GetMapping("/persons")
-    private List<PersonDto> getAllPersons() {
-        return personService.findAll();
-    }
+    PersonService personService;
 
     @PostMapping("/persons")
-    private void addPerson(@RequestBody PersonDto personDto) {
-        personService.addPerson(personDto);
+    public int addPerson(@RequestBody PersonDto personDto) {
+        return personService.addPerson(personDto);
     }
 
     @GetMapping(value = "/persons/{id}")
-    private Optional<PersonDto> findById(@PathVariable("id") int id) {
-        return personService.findById(id);
+    public Optional<String> findPersonById(@PathVariable("id") int id) {
+        Optional<String> person = personService.findPersonById(id);
+        if (person.isPresent()) return person;
+        throw new HttpClientErrorException(HttpStatus.NOT_FOUND);
     }
 
-    @GetMapping(value = "/strings/{id}")
-    private Optional<String> findPersonById(@PathVariable("id") int id) {
-        return personService.findPersonById(id);
-    }
-
-    @GetMapping(value = "/strings")
-    private String findPersons() {
+    @GetMapping(value = "/persons")
+    public String findAllPersons() {
         return personService.findAllPersons();
+    }
+
+    @GetMapping("/dtos")
+    public List<PersonDto> findAll() {
+        return personService.findAll();
+    }
+
+    @GetMapping(value = "/dtos/{id}")
+    public Optional<PersonDto> findById(@PathVariable("id") int id) {
+        Optional<PersonDto> personDto = personService.findById(id);
+        if (personDto.isPresent()) return personDto;
+        throw new HttpClientErrorException(HttpStatus.NOT_FOUND);
     }
 }
