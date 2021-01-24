@@ -32,8 +32,9 @@ public class PersonServiceImpl implements PersonService {
     @Override
     public int addPerson(PersonDto dto) {
         Person savedPerson = personRepository.save(PersonCreator.create(dto));
-        logger.info("Person was successfully saved: {}", mapEntityToString(savedPerson));
-        return savedPerson.getPersonId();
+        int personId = savedPerson.getPersonId();
+        logger.info("Person was successfully saved with id {}.", personId);
+        return personId;
     }
 
     @Override
@@ -42,7 +43,7 @@ public class PersonServiceImpl implements PersonService {
         personRepository.findAll().forEach(person ->
                 persons.add(mapToDto(person))
         );
-        logger.info("Found {} persons", persons.size());
+        logger.info("Found {} persons.", persons.size());
         return persons;
     }
 
@@ -50,7 +51,7 @@ public class PersonServiceImpl implements PersonService {
     public Optional<PersonDto> findById(int id) {
         Optional<PersonDto> personDto = personRepository.findById(id).map(PersonMapper::mapToDto);
         if (personDto.isPresent()) {
-            logger.info("Found person dto: {}", personDto.get());
+            logger.info("Found person dto: {}.", personDto.get());
             return personDto;
         }
         return Optional.empty();
