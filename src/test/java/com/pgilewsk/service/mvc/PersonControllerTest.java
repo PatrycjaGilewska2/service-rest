@@ -74,6 +74,10 @@ class PersonControllerTest {
         thrown.expect(HttpClientErrorException.class);
         restTemplate.exchange(createURLWithPort("/dtos/1"), HttpMethod.GET, null, new ParameterizedTypeReference<>() {
         });
+//        assertThrows(HttpClientErrorException.class, () -> {
+//            restTemplate.exchange(createURLWithPort("/dtos/1"), HttpMethod.GET, null, new ParameterizedTypeReference<>() {
+//            });
+//        });
     }
 
 
