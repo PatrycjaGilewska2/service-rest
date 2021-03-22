@@ -16,8 +16,13 @@ import java.util.Optional;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class PersonController {
 
-    @Autowired
+    //    @Autowired
     PersonService personService;
+
+    @Autowired
+    PersonController(PersonService personService) {
+        this.personService = personService;
+    }
 
     @PostMapping(value = "/persons")
     public Integer addPerson(@RequestBody PersonDto personDto) {
@@ -28,7 +33,7 @@ public class PersonController {
     public Optional<String> findPersonById(@PathVariable("id") int id) {
         Optional<String> person = personService.findPersonById(id);
         if (person.isPresent()) return person;
-        throw new HttpClientErrorException(HttpStatus.NOT_FOUND);
+        throw new NullPointerException();
     }
 
     @GetMapping(value = "/persons")
